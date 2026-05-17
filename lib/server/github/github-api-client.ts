@@ -50,8 +50,6 @@ interface GitHubContentApiResponse {
 }
 
 const GITHUB_API_BASE_URL = "https://api.github.com";
-const GITHUB_API_VERSION = "2022-11-28";
-
 export interface GitHubTreeFetchResult {
   entries: RepositoryTreeEntry[];
   truncated: boolean;
@@ -173,9 +171,8 @@ async function fetchGitHubJson<T>(
 ): Promise<T | null> {
   const response = await fetch(`${GITHUB_API_BASE_URL}${path}`, {
     headers: {
-      Accept: "application/vnd.github+json",
-      "User-Agent": "ai-repo-architect",
-      "X-GitHub-Api-Version": GITHUB_API_VERSION,
+  Accept: "application/vnd.github+json",
+  Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },
     cache: "no-store",
   });
