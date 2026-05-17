@@ -1,10 +1,16 @@
-import type { SUPPORTED_ANALYSIS_DEPTHS } from "./analysis-constants";
+import type {
+  SUPPORTED_ANALYSIS_DEPTHS,
+} from "./analysis-constants";
 
-export type AnalysisDepth = (typeof SUPPORTED_ANALYSIS_DEPTHS)[number];
+export type AnalysisDepth =
+  (typeof SUPPORTED_ANALYSIS_DEPTHS)[number];
 
-export type AiProviderName = "gemini";
+export type AiProviderName =
+  | "openrouter";
 
-export type AnalysisBasis = "observed" | "inferred";
+export type AnalysisBasis =
+  | "observed"
+  | "inferred";
 
 export type AnalysisStageId =
   | "architecture-overview"
@@ -16,75 +22,125 @@ export type AnalysisStageId =
 
 export interface AiContextLimitSummary {
   maxContextFiles: number;
+
   maxFileExcerptBytes: number;
+
   maxTotalContextBytes: number;
 }
 
-export type ObservationSeverity = "low" | "medium" | "high";
+export type ObservationSeverity =
+  | "low"
+  | "medium"
+  | "high";
 
-export type RecommendationPriority = "low" | "medium" | "high";
+export type RecommendationPriority =
+  | "low"
+  | "medium"
+  | "high";
 
 export interface RepositoryReference {
   host: "github.com";
+
   owner: string;
+
   name: string;
+
   url: string;
+
   branch?: string;
 }
 
 export interface DependencyObservation {
   name: string;
-  category: "runtime" | "development";
+
+  category:
+    | "runtime"
+    | "development";
+
   observation: string;
+
   basis: AnalysisBasis;
+
   evidence: string[];
 }
 
 export interface DependencyAnalysis {
-  runtimeDependencies: DependencyObservation[];
-  developmentDependencies: DependencyObservation[];
+  runtimeDependencies:
+    DependencyObservation[];
+
+  developmentDependencies:
+    DependencyObservation[];
+
   notableFindings: string[];
 }
 
 export interface FolderExplanation {
   path: string;
+
   purpose: string;
+
   notableFiles: string[];
+
   basis: AnalysisBasis;
+
   evidence: string[];
 }
 
 export interface CodeSmellObservation {
   title: string;
+
   severity: ObservationSeverity;
+
   basis: AnalysisBasis;
+
   evidence: string;
+
   recommendation: string;
 }
 
 export interface ImprovementRecommendation {
   title: string;
+
   priority: RecommendationPriority;
+
   basis: AnalysisBasis;
+
   evidence: string[];
+
   rationale: string;
+
   suggestedAction: string;
 }
 
 export interface ArchitectureReport {
   architectureOverview: string;
-  dependencyAnalysis: DependencyAnalysis;
-  folderExplanations: FolderExplanation[];
-  codeSmells: CodeSmellObservation[];
-  recommendations: ImprovementRecommendation[];
+
+  dependencyAnalysis:
+    DependencyAnalysis;
+
+  folderExplanations:
+    FolderExplanation[];
+
+  codeSmells:
+    CodeSmellObservation[];
+
+  recommendations:
+    ImprovementRecommendation[];
+
   professionalReadme: string;
 }
 
 export interface AnalysisLimitSummary {
-  ignoredDirectories: readonly string[];
+  ignoredDirectories:
+    readonly string[];
+
   maxFilesScanned: number;
+
   maxTreeEntries: number;
+
   maxSelectedFiles: number;
+
   maxFileBytes: number;
+
   maxTotalSelectedBytes: number;
 }
